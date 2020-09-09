@@ -70,12 +70,14 @@ class FileStorage:
         self.reload()
 
     def get(self, cls, id):
-        """retrieves one object"""
+        """Retrive one object"""
         if cls is None or id is None:
             return None
-        key = "{}.{}".format(cls.__name__, id)
-        return self.__objects[key]
+        for obj in self.all(cls).values():
+            if obj.id == id:
+                return obj
+        return None
 
     def count(self, cls=None):
-        """count the number of objects"""
+        """count the number of objects in storage"""
         return len(self.all(cls))
