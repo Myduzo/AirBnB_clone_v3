@@ -15,17 +15,17 @@ app.register_blueprint(app_views)
 
 @app.teardown_appcontext
 def teardown(self):
-	"""close the storage"""
-	storage.close()
+    """close the storage"""
+    storage.close()
 
 
 @app.route("/api/v1/nop")
 def notfound():
-	"""returns a JSON-formatted 404 status code response"""
-	return jsonify({"error": "Not found"}), 404
+    """returns a JSON-formatted 404 status code response"""
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
-	app.run(host=getenv("HBNB_API_HOST"),
-			port=getenv("HBNB_API_PORT"),
-			threaded=True)
+    app.run(host=getenv("HBNB_API_HOST"),
+            port=getenv("HBNB_API_PORT"),
+            threaded=True)
