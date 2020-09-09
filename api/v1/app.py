@@ -3,7 +3,7 @@
 Web application
 """
 
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, jsonify
 from models import storage
 from api.v1.views import app_views
 from os import getenv
@@ -17,6 +17,13 @@ app.register_blueprint(app_views)
 def teardown(self):
 	"""close the storage"""
 	storage.close()
+
+
+@app.route("/api/v1/nop")
+def notfound():
+	"""returns a JSON-formatted 404 status code response"""
+	return jsonify({"error": "Not found"}), 404
+
 
 if __name__ == "__main__":
 	app.run(host=getenv("HBNB_API_HOST"),
