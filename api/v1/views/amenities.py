@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-view for State objects that handles
+view for Amenity objects that handles
 all default RestFul API actions
 """
 from models import storage
@@ -19,7 +19,8 @@ def all_amenities():
     return jsonify(amenities)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>',
+                 methods=['GET'], strict_slashes=False)
 def amenity_by_id(amenity_id):
     """Retrieves a Amenity object"""
     amenities_values = storage.all("Amenity").values()
@@ -28,11 +29,12 @@ def amenity_by_id(amenity_id):
             return jsonify(obj.to_dict())
     abort(404)
 
-"""
-@app_views.route('/states/<state_id>', methods=['DELETE'],
+
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
-def delete_state(state_id):
-    obj = storage.get('State', state_id)
+def delete_amenity(amenity_id):
+    """delete amenity"""
+    obj = storage.get('Amenity', amenity_id)
     if obj is not None:
         storage.delete(obj)
         storage.save()
@@ -41,23 +43,26 @@ def delete_state(state_id):
         abort(404)
 
 
-@app_views.route('/states', methods=['POST'], strict_slashes=False)
-def create_state():
+@app_views.route('/amenities', methods=['POST'], strict_slashes=False)
+def create_Amenity():
+    """create amenity"""
     r = request.get_json()
     if r is None:
         abort(400, 'Not a JSON')
     elif 'name' not in r.keys():
         abort(400, 'Missing name')
     else:
-        c_state = State(**r)
-        storage.new(c_state)
+        c_Amenity = Amenity(**r)
+        storage.new(c_Amenity)
         storage.save()
-        return jsonify(c_state.to_dict()), 201
+        return jsonify(c_Amenity.to_dict()), 201
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
-def update_state(state_id):
-    obj = storage.get('State', state_id)
+@app_views.route('/amenities/<amenity_id>',
+                 methods=['PUT'], strict_slashes=False)
+def update_Amenity(amenity_id):
+    """update aminity"""
+    obj = storage.get('Amenity', amenity_id)
     if obj is None:
         abort(400)
     r = request.get_json()
@@ -68,4 +73,3 @@ def update_state(state_id):
             setattr(obj, k, v)
     storage.save()
     return jsonify(obj.to_dict())
-"""
