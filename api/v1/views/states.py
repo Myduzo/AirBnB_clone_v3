@@ -9,7 +9,7 @@ from flask import Flask, jsonify, abort, request
 from models.state import State
 
 
-@app_views.route('/states', strict_slashes=False)
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
 def all_states():
     """Retrieves the list of all State objects"""
     states = []
@@ -19,7 +19,7 @@ def all_states():
     return jsonify(states)
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def state_by_id(state_id):
     """Retrieves a State object"""
     states_values = storage.all("State").values()
@@ -29,7 +29,8 @@ def state_by_id(state_id):
     abort(404)
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_state(state_id):
     """Deletes a State object"""
     obj = storage.get('State', state_id)
