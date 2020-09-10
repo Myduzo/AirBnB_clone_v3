@@ -1,4 +1,4 @@
-#!/usr/bash/python3
+#!/usr/bin/python3
 """
 view for State objects that handles
 all default RestFul API actions
