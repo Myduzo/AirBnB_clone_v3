@@ -18,16 +18,17 @@ def all_amenities():
         amenities.append(obj.to_dict())
     return jsonify(amenities)
 
-"""
-@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
-def state_by_id(state_id):
-    states_values = storage.all("State").values()
-    for obj in states_values:
-        if obj.id == state_id:
+
+@app_views.route('/amenities/<amenity_id>', methods=['GET'], strict_slashes=False)
+def amenity_by_id(amenity_id):
+    """Retrieves a Amenity object"""
+    amenities_values = storage.all("Amenity").values()
+    for obj in amenities_values:
+        if obj.id == amenity_id:
             return jsonify(obj.to_dict())
     abort(404)
 
-
+"""
 @app_views.route('/states/<state_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_state(state_id):
